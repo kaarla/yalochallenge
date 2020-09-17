@@ -39,7 +39,7 @@ func main(){
     var arithE Arithmetic
     json.Unmarshal([]byte(arithmeticExpression1), &arithE)
     //fmt.Printf("Expression: %s, Save: %s", arithE.Expression, arithE.Save)
-    fmt.Println(arithE)
-
-    fmt.Println("Expression,", ProcessString(arithE.Expression, arithE.Context, 1))
+    //fmt.Println(arithE)
+    fmt.Println("Expression infix,", ProcessString(arithE.Expression, arithE.Context, 1))
+    fmt.Println("Expression postfix,", InfixToPostfix(arithE.Expression, arithE.Context, 1))
 }

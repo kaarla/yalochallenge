@@ -17,6 +17,7 @@ type OutputA struct{
   Transition int
 }
 
-const ArithmeticBinaryOp string = "+ - * / ^ ( )"
+const ArithmeticBinaryOp string = "+-*/^"
 const ArithmeticUnaryOp string = "!"
-var ArithmeticSymbols string = ArithmeticUnaryOp + ArithmeticBinaryOp + "."
+var ArithmeticSymbols string = ArithmeticBinaryOp + ArithmeticUnaryOp
+var ArithmeticValidSymbols string = ArithmeticSymbols + "()."

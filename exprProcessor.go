@@ -25,9 +25,13 @@ func subsContext(expr string, context map[string]int) string{
 func preconditions(expr string) string{
   infix := strings.Replace(expr, " ", "", -1)
   infix = strings.Replace(expr, "**", "^", -1)
-  symbols := []string{"\\(", "\\)", "\\+", "\\-", "\\/", "\\^", "\\!", "\\>", "\\>=", "\\<", "\\<=", "\\==", "\\!=", "\\||", "\\&&"}
+  aux := ""
+  symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", ">=", "<", "<=", "==", "!=", "||", "&&"}
   for _, s := range symbols{
-    infix = strings.Replace(infix, s, " " + s + " ", -1)
+    aux = " " + s + " "
+    //fmt.Println(s)
+    infix = strings.Replace(infix, s, aux, -1)
+    //fmt.Println(infix)
   }
   return infix
 }
@@ -35,7 +39,7 @@ func preconditions(expr string) string{
 //kind: 0 for logic expressions, 1 for arithmetic
 func validateSymbols(expr string, kind int) bool{
   //fmt.Println("validate")
-  symbols := ArithmeticSymbols
+  symbols := ArithmeticValidSymbols
   if kind == 0{
     //fmt.Println("validateLogic")
     symbols += LogicBinaryOp
@@ -45,7 +49,7 @@ func validateSymbols(expr string, kind int) bool{
   for _, s := range aux{
     if !strings.Contains(symbols, s){ //check if it's a valid symbol
       if _, err := strconv.Atoi(s); err != nil{ //check if it's a number
-        fmt.Println("Validate, error with sybol: ", s)
+        fmt.Println("Validate, error with symbol: ", s)
         return false
       }
     }
