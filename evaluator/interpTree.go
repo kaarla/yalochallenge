@@ -140,13 +140,13 @@ func eval(nod *node) (float64, bool, int){
     case "^":
       return math.Pow(x, y), true, 0
     case ">":
-      return 0.0, x > y, 1
+      return 0.0, y > x, 1
     case "GT":
-      return 0.0, x >= y, 1
+      return 0.0, y >= x, 1
     case "<":
-      return 0.0, x < y, 1
+      return 0.0, y < x, 1
     case "mt":
-      return 0.0, x <= y, 1
+      return 0.0, y <= x, 1
     case "==":
       return 0.0, x == y, 1
     case "dif":
