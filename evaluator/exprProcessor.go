@@ -17,18 +17,18 @@ func ProcessString(expr string, context map[string]int, kind int) (string, error
 }
 
 func subsContext(expr string, context map[string]int) string{
-  for s, _ := range context{
-    expr = strings.Replace(expr, s, strconv.Itoa(context[s]), -1)
+  for s, i := range context{
+    expr = strings.Replace(expr, s, strconv.Itoa(i), -1)
   }
   return expr
 }
 
 func preconditions(expr string) string{
   infix := strings.Replace(expr, " ", "", -1)
-  infix = strings.Replace(expr, "**", "^", -1)
-  infix = strings.Replace(expr, ">=", "GT", -1)
-  infix = strings.Replace(expr, "<=", "mt", -1)
-  infix = strings.Replace(expr, "!=", "dif", -1)
+  infix = strings.Replace(infix, "**", "^", -1)
+  infix = strings.Replace(infix, ">=", "GT", -1)
+  infix = strings.Replace(infix, "<=", "mt", -1)
+  infix = strings.Replace(infix, "!=", "dif", -1)
   aux := ""
   symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", "GT", "<", "mt", "==", "dif", "||", "&&"}
   for _, s := range symbols{
@@ -48,7 +48,7 @@ func validateSymbols(expr string, kind int) (bool, string){
   for _, s := range aux{
     if !strings.Contains(symbols, s){ //check if it's a valid symbol
       if _, err := strconv.Atoi(s); err != nil{ //check if it's a number
-        fmt.Println("Validate, error with symbol: ", s)
+        // fmt.Println("Validate, error with symbol: ", s)
         return false, s
       }
     }

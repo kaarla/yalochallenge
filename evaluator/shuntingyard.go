@@ -2,6 +2,7 @@ package evaluator
 
 import(
   "strings"
+  // "fmt"
 )
 
 var OperatorsPrecedence string = "-+/^!>GT<mt==dif||&&"

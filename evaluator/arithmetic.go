@@ -28,7 +28,11 @@ const ArithmeticUnaryOp string = "!"
 var ArithmeticSymbols string = ArithmeticBinaryOp + ArithmeticUnaryOp
 var ArithmeticValidSymbols string = ArithmeticSymbols + "()."
 
-func (arithE *Arithmetic)Evaluate(){
+func (arithE *Arithmetic)Evaluate(error error){
+  if error != nil{
+    fmt.Println(arithE.createResponse(error.Error(), true))
+    return
+  }
   post, err := InfixToPostfix(arithE.Expression, arithE.Context, 1)
   if err == nil{
     tree := NewInterpTree(post)
@@ -40,16 +44,11 @@ func (arithE *Arithmetic)Evaluate(){
 
 func (arithE *Arithmetic)createResponse(result string, err bool) string{
   response := make(map[string]string)
-  _, error := strconv.Atoi(result)
-  if error != nil {
-    response[arithE.Save] = "NaN"
-  }else{
-    response[arithE.Save] = result
-  }
+  response[arithE.Save] = result
   if err{
-    response["transition"] = strconv.Itoa(arithE.Transitions.Next)
-  }else{
     response["transition"] = strconv.Itoa(arithE.Transitions.Error)
+  }else{
+    response["transition"] = strconv.Itoa(arithE.Transitions.Next)
   }
   json, _ := json.Marshal(response)
   return string(json)
