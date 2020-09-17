@@ -26,7 +26,7 @@ func main(){
     // fmt.Println(logicE)
 
     arithmeticExpression1 := `{
-	                             "expression": "value/(99**2)",
+	                             "expression": "3!",
 	                             "save": "result",
 	                             "transitions": {
 		                               "next": 1,
@@ -41,5 +41,8 @@ func main(){
     //fmt.Printf("Expression: %s, Save: %s", arithE.Expression, arithE.Save)
     //fmt.Println(arithE)
     fmt.Println("Expression infix,", ProcessString(arithE.Expression, arithE.Context, 1))
-    fmt.Println("Expression postfix,", InfixToPostfix(arithE.Expression, arithE.Context, 1))
+    post := InfixToPostfix(arithE.Expression, arithE.Context, 1)
+    fmt.Println("Expression postfix,", post)
+    tree := NewInterpTree(post)
+    fmt.Println("Res: ", tree.Root.elem)
 }

@@ -4,7 +4,7 @@ import(
   "strings"
 )
 
-var operatorsPrecedence string = "-+/^!> >= < <= == != || &&"
+var OperatorsPrecedence string = "-+/^!>>=<<===!=||&&"
 
 func InfixToPostfix(originalExpr string, context map[string]int, kind int) []string{
   infix := ProcessString(originalExpr, context, kind)
@@ -17,7 +17,7 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
       continue;
     }
     c := string(token[0])
-    priority := strings.Index(operatorsPrecedence, c)
+    priority := strings.Index(OperatorsPrecedence, c)
 
     if priority != -1{
       if(len(stack) == 0){
@@ -27,7 +27,7 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
           precedence2 := stack[len(stack)-1] / 2
           precedence1 := priority / 2
           if precedence2 > precedence1 || (precedence2 == precedence1 && c != "^"){
-            aux += string(operatorsPrecedence[stack[len(stack)-1]]) + " "
+            aux += string(OperatorsPrecedence[stack[len(stack)-1]]) + " "
             stack = stack[:len(stack)-1]
           }else{
             break
@@ -39,7 +39,7 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
       stack = append(stack, -2)
     }else if c == ")"{
       for stack[len(stack)-1] != -2{
-        aux += string(operatorsPrecedence[stack[len(stack)-1]]) + " "
+        aux += string(OperatorsPrecedence[stack[len(stack)-1]]) + " "
         stack = stack[:len(stack)-1]
       }
       stack = stack[:len(stack)-1]
@@ -48,7 +48,7 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
     }
   }
   for len(stack) != 0{
-    aux += string(operatorsPrecedence[stack[len(stack)-1]]) + " "
+    aux += string(OperatorsPrecedence[stack[len(stack)-1]]) + " "
     if len(stack) == 1{
       break
     }

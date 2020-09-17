@@ -18,4 +18,4 @@ type OutputL struct{
   Transition int
 }
 
-const LogicBinaryOp string = "> >= < <= == != || &&"
+const LogicBinaryOp string = "> >= < <= == || &&"//!=
