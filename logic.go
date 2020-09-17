@@ -107,4 +107,55 @@ func main(){
     json.Unmarshal([]byte(logicExpression6), &logicE6)
     logicE6.Evaluate()
 
+    fmt.Println("\n\nPrueba 7.\n resultado esperado:\n {\"menorQ\":\"true\",\"transition\":\"1\"}\n Resultado: ")
+    logicExpression7 := `{
+	     "expression": "(age) < 18",
+	     "save": "menorQ",
+	     "transitions": {
+		   "isTrue": 1,
+		   "isFalse": 3,
+		   "isError": 4
+	    },
+	     "context": {
+		       "age": 15
+	     }
+    }`
+    var logicE7 evaluator.LogicEx
+    json.Unmarshal([]byte(logicExpression7), &logicE7)
+    logicE7.Evaluate()
+
+    fmt.Println("\n\nPrueba 8.\n resultado esperado:\n {\"menorOI\":\"true\",\"transition\":\"1\"}\n Resultado: ")
+    logicExpression8 := `{
+	     "expression": "(age) <= 18",
+	     "save": "menorOI",
+	     "transitions": {
+		   "isTrue": 1,
+		   "isFalse": 3,
+		   "isError": 4
+	    },
+	     "context": {
+		       "age": 15
+	     }
+    }`
+    var logicE8 evaluator.LogicEx
+    json.Unmarshal([]byte(logicExpression8), &logicE8)
+    logicE8.Evaluate()
+
+    fmt.Println("\n\nPrueba 9.\n resultado esperado:\n {\"igual\":\"false\",\"transition\":\"3\"}\n Resultado: ")
+    logicExpression9 := `{
+	     "expression": "(age) == 18",
+	     "save": "menorOI",
+	     "transitions": {
+		   "isTrue": 1,
+		   "isFalse": 3,
+		   "isError": 4
+	    },
+	     "context": {
+		       "age": 15
+	     }
+    }`
+    var logicE9 evaluator.LogicEx
+    json.Unmarshal([]byte(logicExpression9), &logicE9)
+    logicE9.Evaluate()
+
 }

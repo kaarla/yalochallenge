@@ -145,7 +145,7 @@ func eval(nod *node) (float64, bool, int){
     case "G":
       return 0.0, x >= y, 1
     case "<":
-      return 0.0, y < x, 1
+      return 0.0, x < y, 1
     case "m":
       return 0.0, x <= y, 1
     case "=":
