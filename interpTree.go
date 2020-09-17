@@ -120,7 +120,7 @@ func eval(nod *node) (float64, bool, int){
   xL, yL := true, true
   y, errY := strconv.ParseFloat(nod.rightSon.elem, 32)
   if nod.unOrBin == 1{
-    return y, true, 0
+    return factorial(y), true, 0
   }
   x, errX := strconv.ParseFloat(nod.leftSon.elem, 32)
   if errY != nil || errX != nil{
@@ -158,4 +158,11 @@ func eval(nod *node) (float64, bool, int){
     default:
       return 0.0, false, -1
   }
+}
+
+func factorial(x float64) float64{
+  if x <= 2{
+    return 1
+  }
+  return x * factorial(x - 1)
 }

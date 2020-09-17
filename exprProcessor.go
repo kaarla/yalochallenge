@@ -29,8 +29,6 @@ func preconditions(expr string) string{
   infix = strings.Replace(expr, ">=", "GT", -1)
   infix = strings.Replace(expr, "<=", "mt", -1)
   infix = strings.Replace(expr, "!=", "dif", -1)
-  // infix = strings.Replace(expr, "true", "T", -1)
-  // infix = strings.Replace(expr, "false", "F", -1)
   aux := ""
   symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", "GT", "<", "mt", "==", "dif", "||", "&&"}
   for _, s := range symbols{
