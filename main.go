@@ -2,6 +2,8 @@ package main
 
 import(
   // "fmt"
+  "github.com/kaarla/yalochallenge/evaluator"
+  // "github.com/kaarla/yalochallenge/evaluator/arithmetic"
   "encoding/json"
 )
 
@@ -19,7 +21,7 @@ func main(){
 		                          "min": 45
 	                        }
                         }`
-    var logicE LogicEx
+    var logicE evaluator.LogicEx
 
     json.Unmarshal([]byte(logicExpression1), &logicE)
     logicE.Evaluate()
@@ -36,7 +38,7 @@ func main(){
 	}
 }
 `
-    var arithE Arithmetic
+    var arithE evaluator.Arithmetic
     json.Unmarshal([]byte(arithmeticExpression1), &arithE)
     arithE.Evaluate()
 }
