@@ -38,12 +38,8 @@ func (logicE LogicEx)Evaluate(){
 
 func (logicE *LogicEx)createResponse(result string) string{
   response := make(map[string]string)
-  _, err := strconv.ParseBool(result)
-  if err != nil {
-    response[logicE.Save] = "NaN"
-  }else{
-    response[logicE.Save] = result
-  }
+  response[logicE.Save] = result
+  
   switch result {
   case "false":
     response["transition"] = strconv.Itoa(logicE.Transitions.IsFalse)

@@ -13,7 +13,7 @@ func ProcessString(expr string, context map[string]int, kind int) (string, error
   if valid {
     return cleanExpr, nil
   }
-  return "", fmt.Errorf("Uncaught ReferenceError: %g is not defined", symbol)
+  return "", fmt.Errorf("Uncaught ReferenceError: %s is not defined", symbol)
 }
 
 func subsContext(expr string, context map[string]int) string{
