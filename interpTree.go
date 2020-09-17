@@ -58,47 +58,54 @@ func NewInterpTree(postfix []string) *InterpTree{
 }
 
 func buildtree(postfix []string) *InterpTree{
-  // fmt.Println("Len init: ", len(postfix), postfix[4])
-  tree := InterpTree{}
-  var stack []*node
-  token := ""
-  for i:= 0; i < len(postfix); i++ {
-    token = postfix[i]
-    nod := newNode(token)
-    fmt.Println("nodo, tipo, unorbin:", nod.elem, nod.kind, nod.unOrBin)
+    // fmt.Println("Len init: ", len(postfix), postfix[4])
+    tree := InterpTree{}
+    var stack []*node
+    token := ""
+    for i:= 0; i < len(postfix); i++ {
+        token = postfix[i]
+        nod := newNode(token)
 
-    if nod.kind == 0{
-      if nod.unOrBin == 2{
-        nod.rightSon = stack[len(stack)-1]
-        stack = stack[:len(stack)-1]
-        nod.rightSon.father = nod
+        if nod.kind == 0{
+            if nod.unOrBin == 2{
+                nod.rightSon = stack[len(stack)-1]
+                stack = stack[:len(stack)-1]
+                nod.rightSon.father = nod
 
-        fmt.Println("len: ", len(stack))
-        nod.leftSon = stack[len(stack)-1]
-        stack = stack[:len(stack)-1]
-        nod.leftSon.father = nod
+                nod.leftSon = stack[len(stack)-1]
+                stack = stack[:len(stack)-1]
+                nod.leftSon.father = nod
 
-        nod.elem = fmt.Sprintf("%f", eval(nod))
-        fmt.Println("Elem eval:", nod.elem)
+                ar, log, k := eval(nod)
+                if k == 0{
+                    nod.elem = fmt.Sprintf("%f", ar)
+                }else{
+                    nod.elem = strconv.FormatBool(log)
+                }
 
-        remove(nod.rightSon)
-        remove(nod.leftSon)
+                remove(nod.rightSon)
+                remove(nod.leftSon)
 
-        stack = append(stack, nod)
-      }else{
-        nod.rightSon = stack[len(stack)-1]
-        stack = stack[:len(stack)-1]
-        nod.elem = fmt.Sprintf("%f", eval(nod))
-        stack = append(stack, nod)
-      }
-      tree.Root = nod
-    }else{
-      stack = append(stack, nod)
+                stack = append(stack, nod)
+            }else{
+                nod.rightSon = stack[len(stack)-1]
+                stack = stack[:len(stack)-1]
+                ar, log, k := eval(nod)
+                if k == 0{
+                    nod.elem = fmt.Sprintf("%f", ar)
+                }else{
+                    nod.elem = strconv.FormatBool(log)
+                }
+                stack = append(stack, nod)
+            }
+            tree.Root = nod
+          }else{
+              stack = append(stack, nod)
+          }
     }
-  }
-  tree.Root = stack[len(stack)-1]
-  stack = stack[:len(stack)-1]
-  return &tree
+    tree.Root = stack[len(stack)-1]
+    stack = stack[:len(stack)-1]
+    return &tree
 }
 
 func remove(nod *node){
@@ -109,23 +116,46 @@ func remove(nod *node){
   }
 }
 
-func eval(nod *node) float64{
-  y, _ := strconv.ParseFloat(nod.rightSon.elem, 32)
+func eval(nod *node) (float64, bool, int){
+  xL, yL := true, true
+  y, errY := strconv.ParseFloat(nod.rightSon.elem, 32)
   if nod.unOrBin == 1{
-    return y
+    return y, true, 0
   }
-  x, _ := strconv.ParseFloat(nod.leftSon.elem, 32)
-  fmt.Println("x, y", x, y)
+  x, errX := strconv.ParseFloat(nod.leftSon.elem, 32)
+  if errY != nil || errX != nil{
+    yL, errY = strconv.ParseBool(nod.rightSon.elem)
+    xL, errX = strconv.ParseBool(nod.leftSon.elem)
+    if errY != nil || errX != nil{
+      return 0.0, false, -1
+    }
+  }
   switch nod.elem {
-  case "+":
-    return x + y
-  case "-":
-    return x - y
-  case "/":
-    return x / y
-  case "^":
-    return math.Pow(x, y)
-  default:
-    return x
+    case "+":
+      return x + y, true, 0
+    case "-":
+      return x - y, true, 0
+    case "/":
+      return x / y, true, 0
+    case "^":
+      return math.Pow(x, y), true, 0
+    case ">":
+      return 0.0, x > y, 1
+    case "GT":
+      return 0.0, x >= y, 1
+    case "<":
+      return 0.0, x < y, 1
+    case "mt":
+      return 0.0, x <= y, 1
+    case "==":
+      return 0.0, x == y, 1
+    case "dif":
+      return 0.0, x != y, 1
+    case "||":
+      return 0.0, (xL || yL), 1
+    case "&&":
+      return 0.0, xL && yL, 1
+    default:
+      return 0.0, false, -1
   }
 }

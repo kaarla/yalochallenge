@@ -15,23 +15,30 @@ func ProcessString(expr string, context map[string]int, kind int) string{
 }
 
 func subsContext(expr string, context map[string]int) string{
-  result := ""
+  // fmt.Println("context", context)
+  //result := ""
   for s, _ := range context{
-    result = strings.Replace(expr, s, strconv.Itoa(context[s]), -1)
+    // fmt.Println("s:", s)
+    // fmt.Println(strings.Contains(expr, s))
+    expr = strings.Replace(expr, s, strconv.Itoa(context[s]), -1)
   }
-  return result
+  // fmt.Println("result:", result)
+  return expr
 }
 
 func preconditions(expr string) string{
   infix := strings.Replace(expr, " ", "", -1)
   infix = strings.Replace(expr, "**", "^", -1)
+  infix = strings.Replace(expr, ">=", "GT", -1)
+  infix = strings.Replace(expr, "<=", "mt", -1)
+  infix = strings.Replace(expr, "!=", "dif", -1)
+  // infix = strings.Replace(expr, "true", "T", -1)
+  // infix = strings.Replace(expr, "false", "F", -1)
   aux := ""
-  symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", ">=", "<", "<=", "==", "!=", "||", "&&"}
+  symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", "GT", "<", "mt", "==", "dif", "||", "&&"}
   for _, s := range symbols{
     aux = " " + s + " "
-    //fmt.Println(s)
     infix = strings.Replace(infix, s, aux, -1)
-    //fmt.Println(infix)
   }
   return infix
 }
