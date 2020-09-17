@@ -1,4 +1,4 @@
-# Evaluador de expresiones
+# Evaluador de expresiones lógicas y aritméticas
 
 Para ejecutar el programa es necesario tener golang instalado, fue elaborado con la versión 15.1
 
