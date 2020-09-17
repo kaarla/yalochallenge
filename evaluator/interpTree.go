@@ -161,7 +161,7 @@ func eval(nod *node) (float64, bool, int){
 }
 
 func factorial(x float64) float64{
-  if x <= 2{
+  if x <= 1{
     return 1
   }
   return x * factorial(x - 1)
