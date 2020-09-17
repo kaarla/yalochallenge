@@ -6,13 +6,14 @@ import(
   "strings"
 )
 
-func ProcessString(expr string, context map[string]int, kind int) string{
+func ProcessString(expr string, context map[string]int, kind int) (string, error){
   cleanExpr := subsContext(expr, context)
-  proccessed := preconditions(cleanExpr)
-  if validateSymbols(proccessed, kind) {
-    return proccessed
+  cleanExpr = preconditions(cleanExpr)
+  valid, symbol := validateSymbols(cleanExpr, kind)
+  if valid {
+    return cleanExpr, nil
   }
-  return ""
+  return "", fmt.Errorf("Uncaught ReferenceError: %g is not defined", symbol)
 }
 
 func subsContext(expr string, context map[string]int) string{
@@ -40,20 +41,19 @@ func preconditions(expr string) string{
 }
 
 //kind: 0 for logic expressions, 1 for arithmetic
-func validateSymbols(expr string, kind int) bool{
+func validateSymbols(expr string, kind int) (bool, string){
   symbols := ArithmeticValidSymbols
   if kind == 0{
     symbols += LogicBinaryOp
   }
-  // temp := strings.Replace(expr, " ", "", -1)
   aux := strings.Split(expr, " ")
   for _, s := range aux{
     if !strings.Contains(symbols, s){ //check if it's a valid symbol
       if _, err := strconv.Atoi(s); err != nil{ //check if it's a number
         fmt.Println("Validate, error with symbol: ", s)
-        return false
+        return false, s
       }
     }
   }
-  return true
+  return true, ""
 }

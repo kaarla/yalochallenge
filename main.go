@@ -22,13 +22,13 @@ func main(){
     var logicE LogicEx
 
     json.Unmarshal([]byte(logicExpression1), &logicE)
-    post1 := InfixToPostfix(logicE.Expression, logicE.Context, 0)
+    post1, _ := InfixToPostfix(logicE.Expression, logicE.Context, 0)
     fmt.Println("Expression postfix,", post1)
     tree1 := NewInterpTree(post1)
     fmt.Println("Res: ", tree1.Root.elem)
 
     arithmeticExpression1 := `{
-	                             "expression": " 4+3/8-1",
+	                             "expression": " 4+3/8-1 hola",
 	                             "save": "result",
 	                             "transitions": {
 		                               "next": 1,
@@ -40,8 +40,10 @@ func main(){
                               }`
     var arithE Arithmetic
     json.Unmarshal([]byte(arithmeticExpression1), &arithE)
-    post := InfixToPostfix(arithE.Expression, arithE.Context, 1)
+    post, err := InfixToPostfix(arithE.Expression, arithE.Context, 1)
     fmt.Println("Expression postfix,", post)
-    tree := NewInterpTree(post)
-    fmt.Println("Res: ", tree.Root.elem)
+    if err == nil{
+      tree := NewInterpTree(post)
+      fmt.Println("Res: ", tree.Root.elem)
+    }
 }

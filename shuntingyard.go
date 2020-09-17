@@ -6,10 +6,13 @@ import(
 
 var OperatorsPrecedence string = "-+/^!>GT<mt==dif||&&"
 
-func InfixToPostfix(originalExpr string, context map[string]int, kind int) []string{
-  infix := ProcessString(originalExpr, context, kind)
+func InfixToPostfix(originalExpr string, context map[string]int, kind int) ([]string, error){
+  infix, err := ProcessString(originalExpr, context, kind)
   aux := ""
   var stack []int
+  if err != nil{
+    return nil, err
+  }
 
   tokens := strings.Split(infix, " ")
   for _, token := range tokens{
@@ -59,5 +62,5 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
   for _, t := range strings.Split(aux, " "){
     result = append(result, t)
   }
-  return result
+  return result, nil
 }
