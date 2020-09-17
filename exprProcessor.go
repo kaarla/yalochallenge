@@ -38,10 +38,8 @@ func preconditions(expr string) string{
 
 //kind: 0 for logic expressions, 1 for arithmetic
 func validateSymbols(expr string, kind int) bool{
-  //fmt.Println("validate")
   symbols := ArithmeticValidSymbols
   if kind == 0{
-    //fmt.Println("validateLogic")
     symbols += LogicBinaryOp
   }
   temp := strings.Replace(expr, " ", "", -1)
