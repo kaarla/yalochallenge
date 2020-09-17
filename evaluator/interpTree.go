@@ -59,7 +59,7 @@ func NewInterpTree(postfix []string) *InterpTree{
 
 func buildtree(postfix []string) *InterpTree{
     // fmt.Println("Len init: ", len(postfix), postfix[4])
-    fmt.Println("post", postfix)
+    // fmt.Println("post", postfix)
     tree := InterpTree{}
     var stack []*node
     token := ""
