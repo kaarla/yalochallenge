@@ -26,6 +26,7 @@ type OutputL struct{
 
 const LogicBinaryOp string = ">G<m==d||&&"
 
+//function to evaluate an expression
 func (logicE LogicEx)Evaluate(){
   post, err := InfixToPostfix(logicE.Expression, logicE.Context, 0)
   if err == nil{
@@ -36,6 +37,7 @@ func (logicE LogicEx)Evaluate(){
   }
 }
 
+//function to build a json response and return it as an string
 func (logicE *LogicEx)createResponse(result string) string{
   response := make(map[string]string)
   response[logicE.Save] = result

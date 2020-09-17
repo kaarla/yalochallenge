@@ -23,11 +23,16 @@ type OutputA struct{
   Transition int
 }
 
+//binary operators
 const ArithmeticBinaryOp string = "+-*/^"
+//unary operators
 const ArithmeticUnaryOp string = "!"
+//only arithmetic symbols
 var ArithmeticSymbols string = ArithmeticBinaryOp + ArithmeticUnaryOp
+//valid symbols
 var ArithmeticValidSymbols string = ArithmeticSymbols + "()."
 
+//function to evaluate an expression
 func (arithE *Arithmetic)Evaluate(error error){
   if error != nil{
     fmt.Println(arithE.createResponse(error.Error(), true))
@@ -42,6 +47,7 @@ func (arithE *Arithmetic)Evaluate(error error){
   }
 }
 
+//function to build a json response and return it as an string
 func (arithE *Arithmetic)createResponse(result string, err bool) string{
   response := make(map[string]string)
   response[arithE.Save] = result

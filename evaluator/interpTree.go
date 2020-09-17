@@ -17,6 +17,7 @@ type node struct{
   unOrBin int
 }
 
+//node constructor
 func newNode(elem string) *node{
   node := node{}
   node.elem = elem
@@ -34,6 +35,7 @@ func newNode(elem string) *node{
   return &node
 }
 
+//to check if the node has rigth son
 func (node *node)hasRightSon() bool{
   if node.rightSon != nil{
     return true
@@ -41,6 +43,7 @@ func (node *node)hasRightSon() bool{
   return false
 }
 
+//to check if 2 nodes are the same
 func (node *node)equals(n *node) bool{
   if n.elem == ""{
     return false
@@ -53,13 +56,13 @@ type InterpTree struct{
   Root *node
 }
 
+//Public function to create an interp tree
 func NewInterpTree(postfix []string) *InterpTree{
   return buildtree(postfix[:len(postfix)-1])
 }
 
+//private function to build an autoevaluated tree
 func buildtree(postfix []string) *InterpTree{
-    // fmt.Println("Len init: ", len(postfix), postfix[4])
-    // fmt.Println("post", postfix)
     tree := InterpTree{}
     var stack []*node
     token := ""
@@ -109,6 +112,7 @@ func buildtree(postfix []string) *InterpTree{
     return &tree
 }
 
+//function to remove nodes that we don't need anymore
 func remove(nod *node){
   if nod.father.hasRightSon() && nod.father.rightSon.equals(nod){
     nod.father.rightSon = nil
@@ -117,6 +121,7 @@ func remove(nod *node){
   }
 }
 
+//function to eval an expression
 func eval(nod *node) (float64, bool, int){
   xL, yL := true, true
   y, errY := strconv.ParseFloat(nod.rightSon.elem, 32)
@@ -161,6 +166,7 @@ func eval(nod *node) (float64, bool, int){
   }
 }
 
+//function to calculate factorial and avoid importing another package
 func factorial(x float64) float64{
   if x <= 1{
     return 1

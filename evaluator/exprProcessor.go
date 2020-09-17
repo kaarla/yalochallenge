@@ -6,6 +6,7 @@ import(
   "strings"
 )
 
+//public method to process a string to beused by the shunting yard algorithm
 func ProcessString(expr string, context map[string]int, kind int) (string, error){
   cleanExpr := subsContext(expr, context)
   cleanExpr = preconditions(cleanExpr)
@@ -16,6 +17,7 @@ func ProcessString(expr string, context map[string]int, kind int) (string, error
   return "", fmt.Errorf("Uncaught ReferenceError: %s is not defined", symbol)
 }
 
+//function to add the context to the expression
 func subsContext(expr string, context map[string]int) string{
   for s, i := range context{
     expr = strings.Replace(expr, s, strconv.Itoa(i), -1)
@@ -23,6 +25,7 @@ func subsContext(expr string, context map[string]int) string{
   return expr
 }
 
+//helper to have a cleaner string expresion
 func preconditions(expr string) string{
   infix := strings.Replace(expr, " ", "", -1)
   infix = strings.Replace(infix, "**", "^", -1)
@@ -35,7 +38,6 @@ func preconditions(expr string) string{
     aux = " " + s + " "
     infix = strings.Replace(infix, s, aux, -1)
   }
-  // fmt.Println("infix", infix)
   return infix
 }
 
@@ -49,7 +51,6 @@ func validateSymbols(expr string, kind int) (bool, string){
   for _, s := range aux{
     if !strings.Contains(symbols, s){ //check if it's a valid symbol
       if _, err := strconv.Atoi(s); err != nil{ //check if it's a number
-        // fmt.Println("Validate, error with symbol: ", s)
         return false, s
       }
     }

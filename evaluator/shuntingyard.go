@@ -7,6 +7,7 @@ import(
 
 var OperatorsPrecedence string = "-+/^!>||&&G<m==d"
 
+//implementation of shunting yard algorithm
 func InfixToPostfix(originalExpr string, context map[string]int, kind int) ([]string, error){
   infix, err := ProcessString(originalExpr, context, kind)
   aux := ""
