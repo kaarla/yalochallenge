@@ -8,21 +8,17 @@ import(
 
 func ProcessString(expr string, context map[string]int, kind int) string{
   cleanExpr := subsContext(expr, context)
-  if validateSymbols(cleanExpr, kind) {
-    return preconditions(cleanExpr)
+  proccessed := preconditions(cleanExpr)
+  if validateSymbols(proccessed, kind) {
+    return proccessed
   }
   return ""
 }
 
 func subsContext(expr string, context map[string]int) string{
-  // fmt.Println("context", context)
-  //result := ""
   for s, _ := range context{
-    // fmt.Println("s:", s)
-    // fmt.Println(strings.Contains(expr, s))
     expr = strings.Replace(expr, s, strconv.Itoa(context[s]), -1)
   }
-  // fmt.Println("result:", result)
   return expr
 }
 
@@ -49,8 +45,8 @@ func validateSymbols(expr string, kind int) bool{
   if kind == 0{
     symbols += LogicBinaryOp
   }
-  temp := strings.Replace(expr, " ", "", -1)
-  aux := strings.Split(temp, "")
+  // temp := strings.Replace(expr, " ", "", -1)
+  aux := strings.Split(expr, " ")
   for _, s := range aux{
     if !strings.Contains(symbols, s){ //check if it's a valid symbol
       if _, err := strconv.Atoi(s); err != nil{ //check if it's a number

@@ -27,23 +27,21 @@ func main(){
     tree1 := NewInterpTree(post1)
     fmt.Println("Res: ", tree1.Root.elem)
 
-    // arithmeticExpression1 := `{
-	  //                            "expression": "3!",
-	  //                            "save": "result",
-	  //                            "transitions": {
-		//                                "next": 1,
-		//                                "error": 2
-	  //                             },
-	  //                            "context": {
-		//                                "value": 180
-	  //                            }
-    //                           }`
-    // var arithE Arithmetic
-    // json.Unmarshal([]byte(arithmeticExpression1), &arithE)
-    // //fmt.Printf("Expression: %s, Save: %s", arithE.Expression, arithE.Save)
-    // //fmt.Println(arithE)
-    // post := InfixToPostfix(arithE.Expression, arithE.Context, 1)
-    // fmt.Println("Expression postfix,", post)
-    // tree := NewInterpTree(post)
-    // fmt.Println("Res: ", tree.Root.elem)
+    arithmeticExpression1 := `{
+	                             "expression": " 4+3/8-1",
+	                             "save": "result",
+	                             "transitions": {
+		                               "next": 1,
+		                               "error": 2
+	                              },
+	                             "context": {
+		                               "value": 180
+	                             }
+                              }`
+    var arithE Arithmetic
+    json.Unmarshal([]byte(arithmeticExpression1), &arithE)
+    post := InfixToPostfix(arithE.Expression, arithE.Context, 1)
+    fmt.Println("Expression postfix,", post)
+    tree := NewInterpTree(post)
+    fmt.Println("Res: ", tree.Root.elem)
 }
