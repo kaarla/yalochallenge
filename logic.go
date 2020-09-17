@@ -17,3 +17,5 @@ type OutputL struct{
   Result bool
   Transition int
 }
+
+const LogicBinaryOp string = "> >= < <= == != || &&"

@@ -3,9 +3,6 @@ package main
 import(
   "fmt"
   "encoding/json"
-  "go/ast"
-	"go/parser"
-	"go/token"
 )
 
 func main(){
@@ -43,4 +40,6 @@ func main(){
     json.Unmarshal([]byte(arithmeticExpression1), &arithE)
     //fmt.Printf("Expression: %s, Save: %s", arithE.Expression, arithE.Save)
     fmt.Println(arithE)
+
+    fmt.Println("Expression,", ProcessString(arithE.Expression, arithE.Context, 1))
 }
