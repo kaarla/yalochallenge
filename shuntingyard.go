@@ -21,7 +21,7 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
       if(len(stack) == 0){
         stack = append(stack, priority)
       }else{
-        for ok := true; ok; ok = len(stack) != 0{
+        for len(stack) != 0{
           precedence2 := stack[len(stack)-1] / 2
           precedence1 := priority / 2
           if precedence2 > precedence1 || (precedence2 == precedence1 && c != "^"){
@@ -36,7 +36,7 @@ func InfixToPostfix(originalExpr string, context map[string]int, kind int) []str
     }else if c == "("{
       stack = append(stack, -2)
     }else if c == ")"{
-      for ok := true; ok; ok = stack[len(stack)-1] != -2{
+      for stack[len(stack)-1] != -2{
         aux += string(ArithmeticSymbols[stack[len(stack)-1]]) + " "
         stack = stack[:len(stack)-1]
       }
