@@ -10,3 +10,5 @@ Una vez en el directorio *yalochallenge*, para ver los ejemplos de los evaluador
 > go run logic.go
 
 > go run arithmetic.go
+
+El programa realiza un parseo básico de las expresiones, ejecuta el algoritmo Shunting Yard para pasar de notación infija a postfija. La nueva expresión postfija es procesada con un árbol de sinntaxis abstracta básico para su interpretación.
