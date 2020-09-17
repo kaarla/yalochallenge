@@ -5,7 +5,7 @@ import(
   // "fmt"
 )
 
-var OperatorsPrecedence string = "-+/^!>GT<mt==dif||&&"
+var OperatorsPrecedence string = "-+/^!>||&&G<m==d"
 
 func InfixToPostfix(originalExpr string, context map[string]int, kind int) ([]string, error){
   infix, err := ProcessString(originalExpr, context, kind)

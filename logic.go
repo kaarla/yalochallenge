@@ -28,7 +28,7 @@ func main(){
 
     fmt.Println("\n\nPrueba 2.\n resultado esperado:\n {\"adult\":\"false\",\"transition\":\"23\"}\n Resultado: ")
     logicExpression2 := `{
-	     "expression": "(age) >= 18",
+	     "expression": "(age) > 18",
 	     "save": "adult",
 	     "transitions": {
 		   "isTrue": 15,
@@ -57,5 +57,54 @@ func main(){
     var logicE3 evaluator.LogicEx
     json.Unmarshal([]byte(logicExpression3), &logicE3)
     logicE3.Evaluate()
+
+    fmt.Println("\n\nPrueba 4.\n resultado esperado:\n {\"ages\":\"false\",\"transition\":\"0\"}\n Resultado: ")
+    logicExpression4 := `{
+	     "expression": "(15) >= 18 && 18 == 18",
+	     "save": "ages",
+	     "transitions": {
+		       "isTrue": 1,
+		       "isFalse": 0,
+		       "isError": -1
+	     },
+	      "context": {}
+      }`
+    var logicE4 evaluator.LogicEx
+    json.Unmarshal([]byte(logicExpression4), &logicE4)
+    logicE4.Evaluate()
+
+    fmt.Println("\n\nPrueba 5.\n resultado esperado:\n {\"trueAges\":\"true\",\"transition\":\"1\"}\n Resultado: ")
+    logicExpression5 := `{
+	     "expression": "(15) <= 18 || mayor != 18",
+	     "save": "trueAges",
+	     "transitions": {
+		       "isTrue": 1,
+		       "isFalse": 0,
+		       "isError": -1
+	     },
+	      "context": {
+          "mayor":18
+        }
+      }`
+    var logicE5 evaluator.LogicEx
+    json.Unmarshal([]byte(logicExpression5), &logicE5)
+    logicE5.Evaluate()
+
+    fmt.Println("\n\nPrueba 6.\n resultado esperado:\n {\"falseAges\":\"false\",\"transition\":\"0\"}\n Resultado: ")
+    logicExpression6 := `{
+	     "expression": "(15) < 18 || mayor != 18",
+	     "save": "trueAges",
+	     "transitions": {
+		       "isTrue": 1,
+		       "isFalse": 0,
+		       "isError": -1
+	     },
+	      "context": {
+          "mayor":18
+        }
+      }`
+    var logicE6 evaluator.LogicEx
+    json.Unmarshal([]byte(logicExpression6), &logicE6)
+    logicE6.Evaluate()
 
 }

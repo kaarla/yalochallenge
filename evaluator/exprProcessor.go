@@ -26,15 +26,16 @@ func subsContext(expr string, context map[string]int) string{
 func preconditions(expr string) string{
   infix := strings.Replace(expr, " ", "", -1)
   infix = strings.Replace(infix, "**", "^", -1)
-  infix = strings.Replace(infix, ">=", "GT", -1)
-  infix = strings.Replace(infix, "<=", "mt", -1)
-  infix = strings.Replace(infix, "!=", "dif", -1)
+  infix = strings.Replace(infix, ">=", "G", -1)
+  infix = strings.Replace(infix, "<=", "m", -1)
+  infix = strings.Replace(infix, "!=", "d", -1)
   aux := ""
-  symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", "GT", "<", "mt", "==", "dif", "||", "&&"}
+  symbols := []string{"(", ")", "+", "-", "/", "^", "!", ">", "G", "<", "m", "==", "d", "||", "&&"}
   for _, s := range symbols{
     aux = " " + s + " "
     infix = strings.Replace(infix, s, aux, -1)
   }
+  // fmt.Println("infix", infix)
   return infix
 }
 

@@ -24,7 +24,7 @@ type OutputL struct{
   Transition int
 }
 
-const LogicBinaryOp string = ">GT<mt==dif||&&"
+const LogicBinaryOp string = ">G<m==d||&&"
 
 func (logicE LogicEx)Evaluate(){
   post, err := InfixToPostfix(logicE.Expression, logicE.Context, 0)
@@ -39,7 +39,7 @@ func (logicE LogicEx)Evaluate(){
 func (logicE *LogicEx)createResponse(result string) string{
   response := make(map[string]string)
   response[logicE.Save] = result
-  
+
   switch result {
   case "false":
     response["transition"] = strconv.Itoa(logicE.Transitions.IsFalse)
